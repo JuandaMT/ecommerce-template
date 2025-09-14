@@ -78,7 +78,7 @@ const Cart = () => {
         {/* Cart Items */}
         <Grid2 size={{ xs: 12, lg: 8 }}>
           <Box sx={{ mb: 3 }}>
-            {cart.items.map((item, index) => (
+            {cart.items.map((item) => (
               <Card key={item.product._id} sx={{ mb: 2, p: 2 }}>
                 <Grid2 container spacing={2} alignItems="center">
                   {/* Product Image */}
