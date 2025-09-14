@@ -1,0 +1,26 @@
+.products-grid {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.products-grid .MuiGrid2-root {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.products-grid .MuiCard-root {
+  height: 100%;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.products-grid .MuiCard-root:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 600px) {
+  .products-grid {
+    padding: 16px;
+  }
+}

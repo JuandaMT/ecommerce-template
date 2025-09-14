@@ -2,11 +2,10 @@ import { Box, Button, CircularProgress, Grid2, Typography } from '@mui/material'
 import { CarrouselCard } from '../components/mui-components/cards/CarrouselCard'
 import './Home.css'
 import { BentoComponent } from '../components/mui-components/cards/BentoComponent'
-import ExitIntentPopup from '../components/mui-components/layout/navbar/ExitIntentPopup'
 import { useEffect, useState } from 'react'
-import { fetchProducts } from '../services/ProductService'
 import { Product } from '../types/Product'
 import { ProductCard } from '../components/mui-components/cards/ProductCard'
+import { fetchProducts } from '../services/productService'
 
 const mainButton = {
 	backgroundColor: '#FFF',
@@ -135,7 +134,6 @@ const Home = () => {
 					))}
 				</Grid2>
 			</Grid2>
-			<ExitIntentPopup />
 		</Box>
 	)
 }

@@ -8,14 +8,30 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import HomeIcon from '@mui/icons-material/Home'
+import InventoryIcon from '@mui/icons-material/Inventory'
+import CategoryIcon from '@mui/icons-material/Category'
+import InfoIcon from '@mui/icons-material/Info'
+import ContactMailIcon from '@mui/icons-material/ContactMail'
 import MenuIcon from '@mui/icons-material/Menu'
 import { Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 const buttonStyle = {
   gap:{md:1},
 }
+
+const navigationItems = [
+  { text: 'Inicio', icon: <HomeIcon />, path: '/' },
+  { text: 'Productos', icon: <InventoryIcon />, path: '/productos' },
+  { text: 'Categorías', icon: <CategoryIcon />, path: '/categorias' },
+]
+
+const secondaryItems = [
+  { text: 'Acerca de', icon: <InfoIcon />, path: '/acerca' },
+  { text: 'Contacto', icon: <ContactMailIcon />, path: '/contacto' },
+]
+
 export default function NavbarDrawer() {
   const [open, setOpen] = React.useState(false)
 
@@ -26,22 +42,22 @@ export default function NavbarDrawer() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+        {navigationItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
+        {secondaryItems.map((item) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
+              <ListItemIcon>{item.icon}</ListItemIcon>
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}

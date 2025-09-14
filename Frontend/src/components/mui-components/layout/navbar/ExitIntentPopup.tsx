@@ -1,12 +1,65 @@
 import { Box, Grid2, IconButton, Typography } from '@mui/material'
 import Backdrop from '@mui/material/Backdrop'
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { NewsLetterInput } from '../../inputs/NewsLetterInput'
 import CloseIcon from '@mui/icons-material/Close'
+
+interface PopupContent {
+  title: string
+  subtitle: string
+}
+
 export default function ExitIntentPopup() {
   const [open, setOpen] = useState(false)
+  const [isListenerActive, setIsListenerActive] = useState(false)
+  const location = useLocation()
+
+  const commercialPages = ['/', '/productos', '/categorias']
+  const shouldShowOnCurrentPage = commercialPages.includes(location.pathname)
+
+  const getPopupContent = (pathname: string): PopupContent => {
+    switch (pathname) {
+      case '/productos':
+        return {
+          title: '¡No te vayas! Tienes productos increíbles esperándote',
+          subtitle: 'Suscríbete y obtén descuentos exclusivos en nuestra colección'
+        }
+      case '/categorias':
+        return {
+          title: '¡Espera! Descubre nuestras categorías especiales',
+          subtitle: 'Recibe ofertas personalizadas según tus intereses'
+        }
+      default:
+        return {
+          title: 'Join Our Newsletter And Get Discount',
+          subtitle: 'Subscribe to the newsletter to receive updates about new products.'
+        }
+    }
+  }
+
+  const popupContent = getPopupContent(location.pathname)
 
   useEffect(() => {
+    if (!shouldShowOnCurrentPage) return
+
+    const hasShownInSession = sessionStorage.getItem('exitIntentShown') === 'true'
+    if (hasShownInSession) return
+
+    // Activar el listener después de 30 segundos
+    const timer = setTimeout(() => {
+      setIsListenerActive(true)
+    }, 30000)
+
+    return () => {
+      clearTimeout(timer)
+      setIsListenerActive(false)
+    }
+  }, [shouldShowOnCurrentPage, location.pathname])
+
+  useEffect(() => {
+    if (!isListenerActive) return
+
     const handleMouseLeave = (event: MouseEvent) => {
       if (event.clientY <= 0) {
         setOpen(true)
@@ -18,9 +71,10 @@ export default function ExitIntentPopup() {
     return () => {
       document.removeEventListener('mouseleave', handleMouseLeave)
     }
-  }, [])
+  }, [isListenerActive])
   const handleClose = () => {
     setOpen(false)
+    sessionStorage.setItem('exitIntentShown', 'true')
   }
 
   return (
@@ -44,11 +98,10 @@ export default function ExitIntentPopup() {
           </Grid2>
           <Grid2 display={'flex'} justifyContent={'center'} gap={2} sx={{ color: 'black' }} flexDirection={'column'}>
             <Typography component={'h6'} variant='h6' fontWeight={'bold'} >
-              Join Our Newsletter And <br />
-              Get Discount Join Our Newsletter And
+              {popupContent.title}
             </Typography>
             <Typography >
-              Subscribe to the newsletter to receive updates <br /> about new products.
+              {popupContent.subtitle}
             </Typography>
           </Grid2>
           <Grid2 container alignContent={'center'} justifyContent={'center'} flexDirection={'column'} gap={2}>
