@@ -2,27 +2,39 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Box, Grid2 } from '@mui/material'
+import { Box, Grid2, Badge } from '@mui/material'
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline'
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag'
 import { Searchbar } from './Searchbar'
 import { useState } from 'react'
 import NavbarDrawer from './NavbarDrawer'
+import { useCart } from '../../../../contexts/CartContext'
 
 const iconStyle = {
   display: { xs: 'none', sm: 'flex' },
   height: { xs: '18px' },
 }
 
-const navbarButtons = [
-  { label: 'Mi cuenta', icon: <PersonOutlineIcon sx={iconStyle} /> },
-  { label: 'Carrito', icon: <ShoppingBagIcon sx={iconStyle} /> },
-]
 export default function Navbar() {
   const [query, _setQuery] = useState('')
+  const { cart, toggleCart } = useCart()
+
   const handleSearchChange = (_event: React.ChangeEvent<HTMLInputElement>) => {
     console.log('Hola', query)
   }
+
+  const navbarButtons = [
+    { label: 'Mi cuenta', icon: <PersonOutlineIcon sx={iconStyle} />, onClick: () => {} },
+    {
+      label: 'Carrito',
+      icon: (
+        <Badge badgeContent={cart.totalItems} color="primary">
+          <ShoppingBagIcon sx={iconStyle} />
+        </Badge>
+      ),
+      onClick: toggleCart
+    },
+  ]
   return (
     <AppBar
       position="sticky"
@@ -47,7 +59,7 @@ export default function Navbar() {
           <Grid2 size={4} gap={{ xs: 0, xl: 3 }} display={'flex'} justifyContent={'end'}>
             {navbarButtons.map((button, index) => {
               return (
-                <Button color="inherit" key={index}>
+                <Button color="inherit" key={index} onClick={button.onClick}>
                   {button.icon}
                   <Typography fontSize={{ xs: '9px', sm: '14px' }}>{button.label}</Typography>
                 </Button>
