@@ -1,0 +1,30 @@
+{
+  "name": "ecommerce-ecosystem",
+  "version": "1.0.0",
+  "description": "Modular e-commerce ecosystem with shared services",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "clients/*",
+    "tools/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "clean": "turbo run clean",
+    "shared:build": "npm run build --workspace=@ecommerce/shared-services",
+    "backend:dev": "npm run dev --workspace=@ecommerce/backend-core",
+    "template:dev": "npm run dev --workspace=@ecommerce/frontend-template",
+    "create-client": "node tools/project-generator/cli.js"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.2"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
