@@ -10,7 +10,14 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
+    "dev": "echo 'Use specific dev commands: npm run dev:backend, npm run dev:frontend, npm run dev:client:terracotta'",
+    "dev:all": "turbo run dev",
+    "dev:backend": "turbo run dev:backend --filter=@ecommerce/backend-core",
+    "dev:frontend": "turbo run dev:frontend --filter=@ecommerce/frontend-template",
+    "dev:client:terracotta": "turbo run dev:client --filter=terracotta-jewelry-frontend",
+    "dev:full-stack": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "kill:all": "./scripts/kill-all-dev.sh",
+    "emergency:stop": "./scripts/kill-all-dev.sh",
     "lint": "turbo run lint",
     "test": "turbo run test",
     "clean": "turbo run clean",
@@ -21,10 +28,12 @@
   },
   "devDependencies": {
     "turbo": "^2.3.0",
-    "typescript": "^5.7.2"
+    "typescript": "^5.7.2",
+    "concurrently": "^9.1.0"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  }
+  },
+  "packageManager": "npm@10.0.0"
 }

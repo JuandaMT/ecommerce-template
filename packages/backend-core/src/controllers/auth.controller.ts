@@ -1,16 +1,16 @@
-import { Response } from 'express'
+import { Request, Response } from 'express'
 import { createUserModel } from '../models/User.js'
 import { AuthRequest, generateToken } from '../middleware/auth.js'
 import { validateUserInput, validateLoginInput } from '../utils/validation.js'
 
-export const register = async (req: AuthRequest, res: Response) => {
+export const register = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { name, email, password, phone } = req.body
 
     // Validate input
     const validation = validateUserInput({ name, email, password, phone })
     if (!validation.isValid) {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Invalid input data',
         error: 'VALIDATION_ERROR',
         details: validation.errors,
@@ -22,7 +22,7 @@ export const register = async (req: AuthRequest, res: Response) => {
     // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() })
     if (existingUser) {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'User already exists with this email',
         error: 'USER_EXISTS',
       })
@@ -62,7 +62,7 @@ export const register = async (req: AuthRequest, res: Response) => {
     console.error('Registration error:', error)
 
     if (error instanceof Error && error.name === 'ValidationError') {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Invalid user data',
         error: 'VALIDATION_ERROR',
         details: error.message,
@@ -76,14 +76,14 @@ export const register = async (req: AuthRequest, res: Response) => {
   }
 }
 
-export const login = async (req: AuthRequest, res: Response) => {
+export const login = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const { email, password } = req.body
 
     // Validate input
     const validation = validateLoginInput({ email, password })
     if (!validation.isValid) {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Invalid input data',
         error: 'VALIDATION_ERROR',
         details: validation.errors,
@@ -95,7 +95,7 @@ export const login = async (req: AuthRequest, res: Response) => {
     // Find user with password field
     const user = await User.findOne({ email: email.toLowerCase() }).select('+password')
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'Invalid credentials',
         error: 'INVALID_CREDENTIALS',
       })
@@ -104,7 +104,7 @@ export const login = async (req: AuthRequest, res: Response) => {
     // Verify password
     const isPasswordValid = await user.comparePassword(password)
     if (!isPasswordValid) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'Invalid credentials',
         error: 'INVALID_CREDENTIALS',
       })
@@ -139,11 +139,11 @@ export const login = async (req: AuthRequest, res: Response) => {
   }
 }
 
-export const getProfile = async (req: AuthRequest, res: Response) => {
+export const getProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const user = req.user
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'User not authenticated',
         error: 'NOT_AUTHENTICATED',
       })
@@ -175,11 +175,11 @@ export const getProfile = async (req: AuthRequest, res: Response) => {
   }
 }
 
-export const updateProfile = async (req: AuthRequest, res: Response) => {
+export const updateProfile = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const user = req.user
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'User not authenticated',
         error: 'NOT_AUTHENTICATED',
       })
@@ -214,7 +214,7 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     console.error('Update profile error:', error)
 
     if (error instanceof Error && error.name === 'ValidationError') {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Invalid data',
         error: 'VALIDATION_ERROR',
         details: error.message,
@@ -228,11 +228,11 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
   }
 }
 
-export const changePassword = async (req: AuthRequest, res: Response) => {
+export const changePassword = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     const user = req.user
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         message: 'User not authenticated',
         error: 'NOT_AUTHENTICATED',
       })
@@ -241,7 +241,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
     const { currentPassword, newPassword } = req.body
 
     if (!currentPassword || !newPassword) {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Current password and new password are required',
         error: 'MISSING_PASSWORDS',
       })
@@ -252,7 +252,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
     // Get user with password
     const userWithPassword = await User.findById(user._id).select('+password')
     if (!userWithPassword) {
-      return res.status(404).json({
+      res.status(404).json({
         message: 'User not found',
         error: 'USER_NOT_FOUND',
       })
@@ -261,7 +261,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
     // Verify current password
     const isCurrentPasswordValid = await userWithPassword.comparePassword(currentPassword)
     if (!isCurrentPasswordValid) {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Current password is incorrect',
         error: 'INVALID_CURRENT_PASSWORD',
       })
@@ -278,7 +278,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
     console.error('Change password error:', error)
 
     if (error instanceof Error && error.name === 'ValidationError') {
-      return res.status(400).json({
+      res.status(400).json({
         message: 'Invalid new password',
         error: 'VALIDATION_ERROR',
         details: error.message,
@@ -292,7 +292,7 @@ export const changePassword = async (req: AuthRequest, res: Response) => {
   }
 }
 
-export const logout = async (req: AuthRequest, res: Response) => {
+export const logout = async (req: AuthRequest, res: Response): Promise<void> => {
   try {
     // For stateless JWT, logout is handled on client side
     // You could implement token blacklisting here if needed

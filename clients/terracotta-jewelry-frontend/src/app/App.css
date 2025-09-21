@@ -1,0 +1,47 @@
+/* Terracotta Jewelry App Styles */
+.carrousel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  overflow-x: auto;
+}
+
+.products-bento {
+  padding: 2rem;
+  background-color: #f5f5f5;
+}
+
+.products-grid {
+  background-color: #ffffff;
+}
+
+/* Custom scrollbar for carrousel */
+.carrousel::-webkit-scrollbar {
+  height: 8px;
+}
+
+.carrousel::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.carrousel::-webkit-scrollbar-thumb {
+  background: #D4A574;
+  border-radius: 4px;
+}
+
+.carrousel::-webkit-scrollbar-thumb:hover {
+  background: #8B4513;
+}
+
+/* Theme variables */
+:root {
+  --primary-color: #D4A574;
+  --secondary-color: #8B4513;
+  --accent-color: #CD853F;
+  --background-color: #FFF8DC;
+  --surface-color: #F5F5DC;
+  --text-color: #5D4037;
+}

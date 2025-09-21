@@ -1,4 +1,4 @@
-import { readFileSync, existsSync } from 'fs'
+import { readFileSync, existsSync, readdirSync } from 'fs'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import dotenv from 'dotenv'
@@ -83,8 +83,7 @@ export const getAllClientIds = (): string[] => {
     return []
   }
 
-  const fs = require('fs')
-  return fs.readdirSync(clientsDir)
+  return readdirSync(clientsDir)
     .filter((file: string) => file.endsWith('.env'))
     .map((file: string) => file.replace('.env', ''))
 }

@@ -5,14 +5,14 @@ import { verifyToken } from '../middleware/auth.js'
 const router = Router()
 
 // Public routes
-router.post('/register', register)
-router.post('/login', login)
-router.post('/logout', logout)
+router.post('/register', register as any)
+router.post('/login', login as any)
+router.post('/logout', logout as any)
 
 // Protected routes
-router.use(verifyToken)
-router.get('/profile', getProfile)
-router.put('/profile', updateProfile)
-router.post('/change-password', changePassword)
+router.use(verifyToken as any)
+router.get('/profile', getProfile as any)
+router.put('/profile', updateProfile as any)
+router.post('/change-password', changePassword as any)
 
 export { router as authRoutes }

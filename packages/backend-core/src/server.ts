@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import helmet from 'helmet'
-import compression from 'compression'
+// import helmet from 'helmet'
 import { config } from './config/environment.js'
 import { resolveClient } from './utils/clientResolver.js'
 import { authRoutes } from './routes/auth.routes.js'
@@ -9,8 +8,7 @@ import { authRoutes } from './routes/auth.routes.js'
 const app = express()
 
 // Security middleware
-app.use(helmet())
-app.use(compression())
+// app.use(helmet())
 
 // CORS configuration
 app.use(cors({
@@ -32,7 +30,7 @@ app.get('/health', (req, res) => {
 })
 
 // Client resolution middleware for all API routes
-app.use('/api', resolveClient)
+app.use('/api', resolveClient as any)
 
 // Routes
 app.use('/api/auth', authRoutes)
