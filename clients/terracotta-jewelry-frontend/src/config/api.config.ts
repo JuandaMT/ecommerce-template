@@ -1,5 +1,5 @@
 import { ApiClient, AuthService, ProductService, OrderService } from '@ecommerce/shared-services'
-import { clientConfig } from './client.config.js'
+import { clientConfig } from './client.config'
 
 // Create API client with client-specific configuration
 export const apiClient = new ApiClient({
