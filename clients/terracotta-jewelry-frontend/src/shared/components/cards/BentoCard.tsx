@@ -18,7 +18,7 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 		<Grid2
 			container
 			size={type == 'big' ? 12 : 6}
-			height={450}
+			height={{ xs: type == 'big' ? 300 : 200, sm: type == 'big' ? 400 : 250, md: 450 }}
 			onClick={handleClick}
 			sx={{
 				opacity: isVisible ? 1 : 0,
@@ -36,12 +36,15 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',
 					overflow: 'hidden',
-					borderRadius: '12px',
+					borderRadius: { xs: '8px', sm: '12px' },
 					boxShadow: isVisible ? '0 8px 32px rgba(0,0,0,0.15)' : '0 4px 16px rgba(0,0,0,0.1)',
-					transition: 'box-shadow 0.3s ease',
+					transition: 'box-shadow 0.3s ease, transform 0.3s ease',
 					'&:hover': {
 						boxShadow: '0 12px 40px rgba(0,0,0,0.2)',
 						transform: 'translateY(-4px)',
+						'@media (max-width: 768px)': {
+							transform: 'none', // Desactivar transform en móviles
+						},
 					},
 					'&:hover .overlay': {
 						opacity: 1,
@@ -52,6 +55,16 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 						transform: 'translate(-50%, -50%)',
 						cursor: 'pointer',
 						userSelect: 'none',
+					},
+					// Mostrar overlay y texto en móviles por defecto
+					'@media (max-width: 768px)': {
+						'& .overlay': {
+							opacity: 0.3,
+						},
+						'& .text': {
+							opacity: 0.9,
+							transform: 'translate(-50%, -50%)',
+						},
 					},
 				}}
 			>
@@ -82,8 +95,13 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 						transition: 'opacity 0.3s ease, transform 0.3s ease',
 						color: 'white',
 						fontWeight: 'bold',
-						fontSize: '1.5rem',
+						fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
 						textAlign: 'center',
+						textShadow: '0 2px 4px rgba(0,0,0,0.8)',
+						padding: { xs: '8px 16px', sm: '10px 20px' },
+						backgroundColor: 'rgba(0,0,0,0.2)',
+						borderRadius: { xs: '20px', sm: '25px' },
+						backdropFilter: 'blur(10px)',
 					}}
 				>
 					Visitar

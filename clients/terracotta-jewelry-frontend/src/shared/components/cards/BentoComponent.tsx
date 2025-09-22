@@ -38,12 +38,13 @@ export const BentoComponent = () => {
 		<Grid2
 			ref={containerRef}
 			container
-			spacing={2}
+			spacing={{ xs: 1, sm: 2 }}
 			width={'100%'}
 			justifyContent={'center'}
 			alignContent={'center'}
 		>
-			<Grid2 container size={6} spacing={1}>
+			{/* En móvil: una sola columna, en desktop: dos columnas */}
+			<Grid2 container size={{ xs: 12, md: 6 }} spacing={{ xs: 1, sm: 1 }}>
 				{cardData.map((card, index) => {
 					return (
 						<BentoBigCard
@@ -57,7 +58,7 @@ export const BentoComponent = () => {
 					)
 				})}
 			</Grid2>
-			<Grid2 container size={6} spacing={1}>
+			<Grid2 container size={{ xs: 12, md: 6 }} spacing={{ xs: 1, sm: 1 }}>
 				{cardData2.map((card, index) => {
 					return (
 						<BentoBigCard
