@@ -55,6 +55,7 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 					},
 				}}
 			>
+				{/* Capa oscura para que el texto resalte */}
 				<Box
 					className='overlay'
 					sx={{
@@ -69,13 +70,14 @@ export const BentoBigCard = ({ src, type, href, isVisible = false, animationDela
 					}}
 				/>
 
+				{/* Texto centrado */}
 				<Box
 					className='text'
 					sx={{
 						position: 'absolute',
 						top: '50%',
 						left: '50%',
-						transform: 'translate(-50%, -60%)',
+						transform: 'translate(-50%, -60%)', // animación empieza un poco arriba
 						opacity: 0,
 						transition: 'opacity 0.3s ease, transform 0.3s ease',
 						color: 'white',

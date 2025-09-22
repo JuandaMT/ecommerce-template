@@ -16,7 +16,7 @@ export const CarrouselCard = ({ src }: Props) => {
         backgroundImage: `url(${src})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
-
+        
       }}
     >
       <Button variant="contained" style={{ backgroundColor: '#FFF', padding: '10px 20px', borderRadius: '4px' }}>

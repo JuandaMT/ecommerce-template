@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Box, CircularProgress, Grid2, Typography, TextField, InputAdornment, Select, MenuItem, FormControl, InputLabel, Chip } from '@mui/material'
 import { Search, FilterList } from '@mui/icons-material'
 import { useProductsIntegration } from '../hooks/useProductsIntegration'
-import { ProductCard } from '../components/ProductCard'
+import { ProductCard } from '../../../shared/components/cards/ProductCard'
 
 export const ProductsPage: React.FC = () => {
   const { products, loading, fetchProducts } = useProductsIntegration()
@@ -93,7 +93,7 @@ export const ProductsPage: React.FC = () => {
             color: '#332E29'
           }}
         >
-          Descubre nuestra colección completa de arte en terracota
+          Descubre nuestra colecciï¿½n completa de arte en terracota
         </Typography>
       </Box>
 
@@ -145,7 +145,7 @@ export const ProductsPage: React.FC = () => {
                   <MenuItem value="all">Todos</MenuItem>
                   <MenuItem value="under50">Menos de $50</MenuItem>
                   <MenuItem value="50to100">$50 - $100</MenuItem>
-                  <MenuItem value="over100">Más de $100</MenuItem>
+                  <MenuItem value="over100">Mï¿½s de $100</MenuItem>
                 </Select>
               </FormControl>
             </Box>
@@ -172,7 +172,7 @@ export const ProductsPage: React.FC = () => {
         {filteredProducts.length === 0 ? (
           <Box textAlign="center" py={4}>
             <Typography variant="h6" color="text.secondary">
-              No se encontraron productos que coincidan con tu búsqueda
+              No se encontraron productos que coincidan con tu bï¿½squeda
             </Typography>
           </Box>
         ) : (
@@ -195,20 +195,20 @@ export const ProductsPage: React.FC = () => {
         }}
       >
         <Typography variant='h4' sx={{ color: '#FFF', mb: 2 }}>
-          ¿Por qué elegir TerraCotta?
+          ï¿½Por quï¿½ elegir TerraCotta?
         </Typography>
         <Typography variant='h6' sx={{ color: '#FFF', mb: 4 }}>
-          Calidad artesanal y diseños únicos en cada pieza
+          Calidad artesanal y diseï¿½os ï¿½nicos en cada pieza
         </Typography>
         <Grid2 container spacing={4} justifyContent="center">
           <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
-            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Envío gratuito mundial</Typography>
+            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Envï¿½o gratuito mundial</Typography>
           </Grid2>
           <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
-            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Garantía de calidad</Typography>
+            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Garantï¿½a de calidad</Typography>
           </Grid2>
           <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
-            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Diseños únicos</Typography>
+            <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Diseï¿½os ï¿½nicos</Typography>
           </Grid2>
           <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
             <Typography sx={{ fontSize: '24px', color: '#FFF' }}>Soporte 24/7</Typography>

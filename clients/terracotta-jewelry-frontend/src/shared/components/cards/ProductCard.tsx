@@ -1,24 +1,25 @@
 import { Card, CardMedia, CardContent, Typography, CardActions, Button, Snackbar, Alert } from '@mui/material';
 import { AddShoppingCart, Check } from '@mui/icons-material';
 import { useState } from 'react';
-import { Product } from '../../types/Product';
-import { useCartStore } from '../../stores/cartStore';
+import { Product } from '@ecommerce/shared-services';
+import { useCartMock } from '../../hooks/useCartMock';
 
 interface Props {
   product: Product;
 }
 
 export const ProductCard = ({ product }: Props) => {
-  const { addItem } = useCartStore();
+  const { addToCart } = useCartMock();
   const [showSuccess, setShowSuccess] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = async () => {
     setIsAdding(true);
     try {
-      addItem(product);
+      addToCart(product);
       setShowSuccess(true);
 
+      // Pequeña animación de feedback
       setTimeout(() => {
         setIsAdding(false);
       }, 300);
