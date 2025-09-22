@@ -1,12 +1,47 @@
 import { Box, Button, Grid2, Typography } from '@mui/material'
+import { ArrowForward, ShoppingBag } from '@mui/icons-material'
 import { CarrouselCard } from '../../../shared/components/cards/CarrouselCard'
 import './Home.css'
 import { BentoComponent } from '../../../shared/components/cards/BentoComponent'
 
-const mainButton = {
-	backgroundColor: '#FFF',
-	padding: '10px 20px',
-	borderRadius: '4px',
+const modernButton = {
+	background: 'linear-gradient(135deg, #FFF 0%, #F8F8F8 100%)',
+	color: '#332E29',
+	padding: { xs: '12px 24px', md: '16px 32px' },
+	borderRadius: '50px',
+	fontSize: { xs: '14px', sm: '16px', md: '18px' },
+	fontWeight: 700,
+	letterSpacing: '0.5px',
+	textTransform: 'uppercase',
+	border: '2px solid transparent',
+	boxShadow: '0 8px 32px rgba(255, 255, 255, 0.3), 0 4px 16px rgba(0, 0, 0, 0.1)',
+	backdropFilter: 'blur(10px)',
+	position: 'relative',
+	overflow: 'hidden',
+	transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+	'&:hover': {
+		background: 'linear-gradient(135deg, #332E29 0%, #4A453E 100%)',
+		color: '#FFF',
+		transform: 'translateY(-4px) scale(1.05)',
+		boxShadow: '0 20px 40px rgba(51, 46, 41, 0.4), 0 8px 24px rgba(0, 0, 0, 0.2)',
+		border: '2px solid rgba(255, 255, 255, 0.2)',
+	},
+	'&:active': {
+		transform: 'translateY(-2px) scale(1.02)',
+	},
+	'&::before': {
+		content: '""',
+		position: 'absolute',
+		top: 0,
+		left: '-100%',
+		width: '100%',
+		height: '100%',
+		background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+		transition: 'left 0.6s ease',
+	},
+	'&:hover::before': {
+		left: '100%',
+	},
 }
 
 export const HomePage = () => {
@@ -27,8 +62,13 @@ export const HomePage = () => {
 						<Typography variant='h5' sx={{ fontSize: { xs: '14px', sm: '23px', md: '25px' } }}>
 							Create Your Clay Art & Print
 						</Typography>
-						<Button variant='contained' sx={{ mainButton, mt: 1 }}>
-							SHOP NOW
+						<Button
+							variant='contained'
+							sx={{ ...modernButton, mt: { xs: 2, md: 3 } }}
+							startIcon={<ShoppingBag />}
+							endIcon={<ArrowForward />}
+						>
+							Shop Now
 						</Button>
 					</Grid2>
 					<Grid2 size={6} display={'flex'} flexDirection={'column'} alignItems={'center'} justifyContent={'center'} maxHeight={'400px'}>
