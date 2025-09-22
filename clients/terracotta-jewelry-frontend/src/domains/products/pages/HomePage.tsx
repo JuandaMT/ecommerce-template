@@ -1,6 +1,7 @@
 import { Box, Button, Grid2, Typography } from '@mui/material'
 import { ArrowForward, ShoppingBag } from '@mui/icons-material'
 import { CarrouselCard } from '../../../shared/components/cards/CarrouselCard'
+import { InfiniteCarousel } from '../../../shared/components/carousel/InfiniteCarousel'
 import './Home.css'
 import { BentoComponent } from '../../../shared/components/cards/BentoComponent'
 
@@ -86,10 +87,14 @@ export const HomePage = () => {
 					Discover our fantastic early booking discounts & <br /> start planning your journey.
 				</Typography>
 			</Box>
-			<Box component={'section'} className='carrousel'>
-				<CarrouselCard src='/src/assets/images/Anillo1.webp' />
-				<CarrouselCard src='/src/assets/images/Anillo2.webp' />
-				<CarrouselCard src='/src/assets/images/Brazalete1.webp' />
+			<Box component={'section'}>
+				<InfiniteCarousel speed={100}>
+					<CarrouselCard src='/src/assets/images/Anillo1.webp' />
+					<CarrouselCard src='/src/assets/images/Anillo2.webp' />
+					<CarrouselCard src='/src/assets/images/Brazalete1.webp' />
+					<CarrouselCard src='/src/assets/images/Anillo1.webp' />
+					<CarrouselCard src='/src/assets/images/Anillo2.webp' />
+				</InfiniteCarousel>
 			</Box>
 			<Box component={'section'} bgcolor={'#F5F5F5'} p={5} textAlign={'center'}>
 				<Typography variant='h4'>Our Products</Typography>
