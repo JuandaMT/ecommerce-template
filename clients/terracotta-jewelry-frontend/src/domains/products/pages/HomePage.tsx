@@ -2,6 +2,7 @@ import { Box, Button, Grid2, Typography } from '@mui/material'
 import { ArrowForward, ShoppingBag } from '@mui/icons-material'
 import { CarrouselCard } from '../../../shared/components/cards/CarrouselCard'
 import { InfiniteCarousel } from '../../../shared/components/carousel/InfiniteCarousel'
+import { AnimatedReviews } from '../../../shared/components/reviews/AnimatedReviews'
 import './Home.css'
 import { BentoComponent } from '../../../shared/components/cards/BentoComponent'
 
@@ -147,6 +148,9 @@ export const HomePage = () => {
 					</Grid2>
 				</Grid2>
 			</Grid2>
+
+			{/* Sección de Reseñas */}
+			<AnimatedReviews />
 		</Box>
 	)
 }
