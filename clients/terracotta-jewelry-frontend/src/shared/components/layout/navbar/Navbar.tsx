@@ -39,7 +39,10 @@ export const Navbar = () => {
 
 	const handleSearchFocus = () => {
 		if (!isMobile) {
-			setSearchDropdownOpen(true)
+			// Pequeño delay para evitar conflicto con ClickAwayListener
+			setTimeout(() => {
+				setSearchDropdownOpen(true)
+			}, 50)
 		}
 	}
 

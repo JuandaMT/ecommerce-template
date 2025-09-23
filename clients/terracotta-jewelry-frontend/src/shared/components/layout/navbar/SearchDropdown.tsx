@@ -86,7 +86,15 @@ export const SearchDropdown = ({
 				},
 			]}
 		>
-			<ClickAwayListener onClickAway={onClose}>
+			<ClickAwayListener
+				onClickAway={(event) => {
+					// No cerrar si el clic fue en el searchbar
+					if (anchorEl && anchorEl.contains(event.target as Node)) {
+						return
+					}
+					onClose()
+				}}
+			>
 				<Paper
 					ref={containerRef}
 					elevation={8}
