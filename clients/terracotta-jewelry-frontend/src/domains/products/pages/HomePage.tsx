@@ -1,5 +1,5 @@
 import { Box, Button, Grid2, Typography } from '@mui/material'
-import { ArrowForward, ShoppingBag } from '@mui/icons-material'
+import { ArrowForward, ShoppingBag, LocalShipping, Security, Star, SupportAgent } from '@mui/icons-material'
 import { CarrouselCard } from '../../../shared/components/cards/CarrouselCard'
 import { InfiniteCarousel } from '../../../shared/components/carousel/InfiniteCarousel'
 import { AnimatedReviews } from '../../../shared/components/reviews/AnimatedReviews'
@@ -114,48 +114,278 @@ export const HomePage = () => {
 			<Box component={'section'} className='products-bento'>
 				<BentoComponent />
 			</Box>
-			<Grid2
-				container
-				height={'300px'}
-				style={{
-					width: '100%',
-					height: '300px',
-					backgroundColor: '#332E29',
+			<Box
+				component={'section'}
+				sx={{
+					backgroundColor: '#FEFEFE',
+					py: { xs: 8, md: 12 },
+					px: { xs: 3, md: 5 },
 				}}
 			>
-				<Grid2
-					container
-					width={'100%'}
-					justifyContent='center'
-					alignItems='center'
-					flexDirection={'column'}
-					gap={8}
-					sx={{ color: '#FFF', textAlign: 'center' }}
+				<Box
+					sx={{
+						maxWidth: '1200px',
+						margin: '0 auto',
+						textAlign: 'center',
+					}}
 				>
-					<Typography component={'h3'}>Why TerraCotta?</Typography>
-					<Typography variant='h6' component='h6'>
-						Discover our fantastic early booking discounts & start planning your journey
+					<Typography
+						variant='h2'
+						component={'h3'}
+						sx={{
+							color: '#1A1A1A',
+							fontSize: { xs: '28px', md: '36px' },
+							fontWeight: 300,
+							letterSpacing: '0.02em',
+							mb: 3,
+							fontFamily: '"Playfair Display", serif',
+						}}
+					>
+						Why Choose TerraCotta
 					</Typography>
-					<Grid2 container width={'100%'}>
-						<Grid2 size={3}>
-							<Box>Icono</Box>
-							<Typography sx={{ fontSize: '29px' }}>Free delivery Worldwide</Typography>
+					<Typography
+						variant='body1'
+						component='p'
+						sx={{
+							color: '#666666',
+							fontSize: { xs: '16px', md: '18px' },
+							mb: { xs: 8, md: 10 },
+							maxWidth: '520px',
+							margin: '0 auto 64px',
+							lineHeight: 1.7,
+							fontWeight: 300,
+						}}
+					>
+						Exceptional craftsmanship meets timeless elegance in every piece
+					</Typography>
+
+					<Grid2 container spacing={{ xs: 6, md: 8 }} justifyContent="center">
+						<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									alignItems: 'center',
+									gap: 3,
+									p: 4,
+									borderRadius: '12px',
+									border: '1px solid #E5DDD4',
+									transition: 'transform 0.2s ease',
+									'&:hover': {
+										transform: 'translateY(-4px)',
+									}
+								}}
+							>
+								<Box
+									sx={{
+										width: '64px',
+										height: '64px',
+										borderRadius: '50%',
+										backgroundColor: '#F8F6F3',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										mb: 1,
+									}}
+								>
+									<LocalShipping sx={{ fontSize: '28px', color: '#8B7355' }} />
+								</Box>
+								<Typography
+									variant='h6'
+									sx={{
+										fontSize: '18px',
+										fontWeight: 400,
+										color: '#1A1A1A',
+										textAlign: 'center',
+										mb: 1,
+									}}
+								>
+									Complimentary Shipping
+								</Typography>
+								<Typography
+									variant='body2'
+									sx={{
+										fontSize: '14px',
+										color: '#888888',
+										textAlign: 'center',
+										lineHeight: 1.5,
+									}}
+								>
+									Worldwide delivery on orders above $75
+								</Typography>
+							</Box>
 						</Grid2>
-						<Grid2 size={3}>
-							<Box>Icono</Box>
-							<Typography sx={{ fontSize: '29px' }}>Free delivery Worldwide</Typography>
+
+						<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									alignItems: 'center',
+									gap: 3,
+									p: 4,
+									borderRadius: '12px',
+									border: '1px solid #E5DDD4',
+									transition: 'transform 0.2s ease',
+									'&:hover': {
+										transform: 'translateY(-4px)',
+									}
+								}}
+							>
+								<Box
+									sx={{
+										width: '64px',
+										height: '64px',
+										borderRadius: '50%',
+										backgroundColor: '#F8F6F3',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										mb: 1,
+									}}
+								>
+									<Security sx={{ fontSize: '28px', color: '#8B7355' }} />
+								</Box>
+								<Typography
+									variant='h6'
+									sx={{
+										fontSize: '18px',
+										fontWeight: 400,
+										color: '#1A1A1A',
+										textAlign: 'center',
+										mb: 1,
+									}}
+								>
+									Secure Transactions
+								</Typography>
+								<Typography
+									variant='body2'
+									sx={{
+										fontSize: '14px',
+										color: '#888888',
+										textAlign: 'center',
+										lineHeight: 1.5,
+									}}
+								>
+									Bank-level security for all payments
+								</Typography>
+							</Box>
 						</Grid2>
-						<Grid2 size={3}>
-							<Box>Icono</Box>
-							<Typography sx={{ fontSize: '29px' }}>Free delivery Worldwide</Typography>
+
+						<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									alignItems: 'center',
+									gap: 3,
+									p: 4,
+									borderRadius: '12px',
+									border: '1px solid #E5DDD4',
+									transition: 'transform 0.2s ease',
+									'&:hover': {
+										transform: 'translateY(-4px)',
+									}
+								}}
+							>
+								<Box
+									sx={{
+										width: '64px',
+										height: '64px',
+										borderRadius: '50%',
+										backgroundColor: '#F8F6F3',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										mb: 1,
+									}}
+								>
+									<Star sx={{ fontSize: '28px', color: '#8B7355' }} />
+								</Box>
+								<Typography
+									variant='h6'
+									sx={{
+										fontSize: '18px',
+										fontWeight: 400,
+										color: '#1A1A1A',
+										textAlign: 'center',
+										mb: 1,
+									}}
+								>
+									Artisan Crafted
+								</Typography>
+								<Typography
+									variant='body2'
+									sx={{
+										fontSize: '14px',
+										color: '#888888',
+										textAlign: 'center',
+										lineHeight: 1.5,
+									}}
+								>
+									Each piece individually handmade
+								</Typography>
+							</Box>
 						</Grid2>
-						<Grid2 size={3}>
-							<Box>Icono</Box>
-							<Typography sx={{ fontSize: '29px' }}>Free delivery Worldwide</Typography>
+
+						<Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
+							<Box
+								sx={{
+									display: 'flex',
+									flexDirection: 'column',
+									alignItems: 'center',
+									gap: 3,
+									p: 4,
+									borderRadius: '12px',
+									border: '1px solid #E5DDD4',
+									transition: 'transform 0.2s ease',
+									'&:hover': {
+										transform: 'translateY(-4px)',
+									}
+								}}
+							>
+								<Box
+									sx={{
+										width: '64px',
+										height: '64px',
+										borderRadius: '50%',
+										backgroundColor: '#F8F6F3',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										mb: 1,
+									}}
+								>
+									<SupportAgent sx={{ fontSize: '28px', color: '#8B7355' }} />
+								</Box>
+								<Typography
+									variant='h6'
+									sx={{
+										fontSize: '18px',
+										fontWeight: 400,
+										color: '#1A1A1A',
+										textAlign: 'center',
+										mb: 1,
+									}}
+								>
+									Personal Service
+								</Typography>
+								<Typography
+									variant='body2'
+									sx={{
+										fontSize: '14px',
+										color: '#888888',
+										textAlign: 'center',
+										lineHeight: 1.5,
+									}}
+								>
+									Dedicated support specialists
+								</Typography>
+							</Box>
 						</Grid2>
 					</Grid2>
-				</Grid2>
-			</Grid2>
+				</Box>
+			</Box>
 
 			{/* Sección de Reseñas */}
 			<AnimatedReviews />
