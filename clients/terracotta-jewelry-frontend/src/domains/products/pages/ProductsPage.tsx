@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { Box, CircularProgress, Grid2, Typography, TextField, InputAdornment, Select, MenuItem, FormControl, InputLabel, Chip } from '@mui/material'
 import { Search, FilterList } from '@mui/icons-material'
 import { useProductsIntegration } from '../hooks/useProductsIntegration'
@@ -10,10 +11,21 @@ export const ProductsPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState('name')
   const [priceRange, setPriceRange] = useState('all')
+  const location = useLocation()
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
+
+  // Leer parámetros de búsqueda desde la URL al cargar
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search)
+    const searchFromUrl = searchParams.get('search')
+    if (searchFromUrl) {
+      setSearchQuery(searchFromUrl)
+    }
+  }, [location.search])
 
   useEffect(() => {
     setFilteredProducts(products)
@@ -57,6 +69,19 @@ export const ProductsPage: React.FC = () => {
 
     setFilteredProducts(filtered)
   }, [products, searchQuery, sortBy, priceRange])
+
+  // Función para manejar cambios en la búsqueda y actualizar URL
+  const handleSearchChange = (value: string) => {
+    setSearchQuery(value)
+    const searchParams = new URLSearchParams(location.search)
+    if (value.trim()) {
+      searchParams.set('search', value.trim())
+    } else {
+      searchParams.delete('search')
+    }
+    const newUrl = `${location.pathname}?${searchParams.toString()}`
+    navigate(newUrl, { replace: true })
+  }
 
   if (loading) {
     return (
@@ -105,7 +130,7 @@ export const ProductsPage: React.FC = () => {
               variant="outlined"
               placeholder="Buscar productos..."
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => handleSearchChange(e.target.value)}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -160,7 +185,7 @@ export const ProductsPage: React.FC = () => {
           {searchQuery && (
             <Chip
               label={`"${searchQuery}"`}
-              onDelete={() => setSearchQuery('')}
+              onDelete={() => handleSearchChange('')}
               size="small"
               sx={{ ml: 1 }}
             />

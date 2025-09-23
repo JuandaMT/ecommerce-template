@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
 	AppBar,
 	Toolbar,
@@ -13,6 +14,7 @@ import {
 import { Search, ShoppingBag, AccountCircle } from '@mui/icons-material'
 import { Searchbar } from './Searchbar'
 import { SearchModal } from './SearchModal'
+import { SearchDropdown } from './SearchDropdown'
 import { useCartMock } from '../../../hooks/useCartMock'
 
 
@@ -23,10 +25,31 @@ export const Navbar = () => {
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 	const [searchValue, setSearchValue] = useState('')
 	const [searchModalOpen, setSearchModalOpen] = useState(false)
+	const [searchDropdownOpen, setSearchDropdownOpen] = useState(false)
+	const searchRef = useRef<HTMLDivElement>(null)
 	const { cartSummary } = useCartMock()
+	const navigate = useNavigate()
 
 	const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setSearchValue(event.target.value)
+		if (!isMobile) {
+			setSearchDropdownOpen(true)
+		}
+	}
+
+	const handleSearchFocus = () => {
+		if (!isMobile) {
+			setSearchDropdownOpen(true)
+		}
+	}
+
+	const handleSearchDropdownClose = () => {
+		setSearchDropdownOpen(false)
+	}
+
+	const handleTrendingClick = (trend: string) => {
+		setSearchValue(trend)
+		setSearchDropdownOpen(false)
 	}
 
 	const handleSearchModalOpen = () => {
@@ -39,8 +62,12 @@ export const Navbar = () => {
 
 	const handleSearchSubmit = (event: React.FormEvent) => {
 		event.preventDefault()
-		// TODO: Implement search functionality
-		console.log('Search for:', searchValue)
+		setSearchDropdownOpen(false)
+		if (searchValue.trim()) {
+			navigate(`/productos?search=${encodeURIComponent(searchValue.trim())}`)
+		} else {
+			navigate('/productos')
+		}
 	}
 	return (
 		<>
@@ -80,14 +107,16 @@ export const Navbar = () => {
 						{/* Search bar - only on desktop */}
 						{!isMobile && (
 							<Box
+								ref={searchRef}
 								component="form"
 								onSubmit={handleSearchSubmit}
-								sx={{ mx: 3, maxWidth: '400px' }}
+								sx={{ mx: 3, maxWidth: '400px', position: 'relative' }}
 							>
 								<Searchbar
 									name="search"
 									value={searchValue}
 									onChange={handleSearchChange}
+									onFocus={handleSearchFocus}
 								/>
 							</Box>
 						)}
@@ -135,6 +164,17 @@ export const Navbar = () => {
 				open={searchModalOpen}
 				onClose={handleSearchModalClose}
 			/>
+
+			{/* Search Dropdown for Desktop */}
+			{!isMobile && (
+				<SearchDropdown
+					searchQuery={searchValue}
+					anchorEl={searchRef.current}
+					open={searchDropdownOpen}
+					onClose={handleSearchDropdownClose}
+					onTrendingClick={handleTrendingClick}
+				/>
+			)}
 		</>
 	)
 }

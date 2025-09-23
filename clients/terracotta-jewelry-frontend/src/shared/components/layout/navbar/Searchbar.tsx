@@ -47,16 +47,18 @@ const customIcon = (
 interface SearchbarProps {
 	value: string
 	onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+	onFocus?: () => void
 	name: string
 }
 
-export const Searchbar = ({ name, onChange, value }: SearchbarProps) => {
+export const Searchbar = ({ name, onChange, value, onFocus }: SearchbarProps) => {
 	return (
 		<SearchContainer>
 			<CustomInput
 				name={name}
 				value={value}
 				onChange={onChange}
+				onFocus={onFocus}
 				placeholder="Buscar productos..."
 			/>
 			<IconContainer>{customIcon}</IconContainer>
