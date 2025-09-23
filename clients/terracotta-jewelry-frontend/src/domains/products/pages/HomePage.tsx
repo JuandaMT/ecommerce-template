@@ -169,7 +169,9 @@ export const HomePage = () => {
 									gap: 3,
 									p: 4,
 									borderRadius: '12px',
-									border: '1px solid #E5DDD4',
+									border: '1px solid #E8DDD4',
+									height: '100%',
+									justifyContent: 'center',
 									transition: 'transform 0.2s ease',
 									'&:hover': {
 										transform: 'translateY(-4px)',
@@ -225,7 +227,9 @@ export const HomePage = () => {
 									gap: 3,
 									p: 4,
 									borderRadius: '12px',
-									border: '1px solid #E5DDD4',
+									border: '1px solid #E8DDD4',
+									height: '100%',
+									justifyContent: 'center',
 									transition: 'transform 0.2s ease',
 									'&:hover': {
 										transform: 'translateY(-4px)',
@@ -281,7 +285,9 @@ export const HomePage = () => {
 									gap: 3,
 									p: 4,
 									borderRadius: '12px',
-									border: '1px solid #E5DDD4',
+									border: '1px solid #E8DDD4',
+									height: '100%',
+									justifyContent: 'center',
 									transition: 'transform 0.2s ease',
 									'&:hover': {
 										transform: 'translateY(-4px)',
@@ -337,7 +343,9 @@ export const HomePage = () => {
 									gap: 3,
 									p: 4,
 									borderRadius: '12px',
-									border: '1px solid #E5DDD4',
+									border: '1px solid #E8DDD4',
+									height: '100%',
+									justifyContent: 'center',
 									transition: 'transform 0.2s ease',
 									'&:hover': {
 										transform: 'translateY(-4px)',
