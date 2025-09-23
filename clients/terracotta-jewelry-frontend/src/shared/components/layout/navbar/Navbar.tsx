@@ -10,6 +10,7 @@ import {
 	Container,
 	useMediaQuery,
 	useTheme,
+	Button,
 } from '@mui/material'
 import { Search, ShoppingBag, AccountCircle } from '@mui/icons-material'
 import { Searchbar } from './Searchbar'
@@ -78,7 +79,19 @@ export const Navbar = () => {
 				<Container maxWidth="xl">
 					<Toolbar disableGutters>
 						{/* Logo */}
-						<Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								mr: 2,
+								cursor: 'pointer',
+								transition: 'opacity 0.2s ease',
+								'&:hover': {
+									opacity: 0.8,
+								}
+							}}
+							onClick={() => navigate('/')}
+						>
 							<img
 								src={logo}
 								alt="TerraCotta"
@@ -123,6 +136,67 @@ export const Navbar = () => {
 								/>
 							</Box>
 						)}
+
+						{/* Spacer to center navigation */}
+						<Box sx={{ flexGrow: 1 }} />
+
+						{/* Navigation Menu - Center */}
+						<Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 1 }}>
+							<Button
+								onClick={() => navigate('/productos')}
+								sx={{
+									color: '#332E29',
+									fontWeight: 500,
+									fontSize: '16px',
+									textTransform: 'none',
+									px: 3,
+									py: 1,
+									borderRadius: '8px',
+									'&:hover': {
+										backgroundColor: '#F8F6F3',
+									}
+								}}
+							>
+								Productos
+							</Button>
+							{/* Prepared for future navigation items */}
+							{/*
+							<Button
+								onClick={() => navigate('/historia')}
+								sx={{
+									color: '#332E29',
+									fontWeight: 500,
+									fontSize: '16px',
+									textTransform: 'none',
+									px: 3,
+									py: 1,
+									borderRadius: '8px',
+									'&:hover': {
+										backgroundColor: '#F8F6F3',
+									}
+								}}
+							>
+								Historia
+							</Button>
+							<Button
+								onClick={() => navigate('/contacto')}
+								sx={{
+									color: '#332E29',
+									fontWeight: 500,
+									fontSize: '16px',
+									textTransform: 'none',
+									px: 3,
+									py: 1,
+									borderRadius: '8px',
+									'&:hover': {
+										backgroundColor: '#F8F6F3',
+									}
+								}}
+							>
+								Contacto
+							</Button>
+							*/}
+						</Box>
 
 						{/* Spacer to push icons to the right */}
 						<Box sx={{ flexGrow: 1 }} />
