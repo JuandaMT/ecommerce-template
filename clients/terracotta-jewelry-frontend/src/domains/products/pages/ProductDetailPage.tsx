@@ -4,7 +4,7 @@ import {
   Container,
   Typography,
   Box,
-  Grid,
+  Grid2,
   Button,
   Paper,
   Chip,
@@ -25,11 +25,11 @@ import {
   Share,
   LocalShipping
 } from '@mui/icons-material'
-import { useCartStore } from '@ecommerce/shared-services'
+import { useCartStore } from '../../../shared/stores/cartStore'
 
 export const ProductDetailPage: React.FC = () => {
   const { productId } = useParams<{ productId: string }>()
-  const { addToCart } = useCartStore()
+  const { addItem } = useCartStore()
   const [quantity, setQuantity] = useState(1)
   const [selectedImage, setSelectedImage] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
@@ -37,10 +37,10 @@ export const ProductDetailPage: React.FC = () => {
   // Mock product data (in a real app, this would come from an API)
   const product = {
     id: productId || '1',
-    name: 'Collar Artesanal Terracota Étnico',
+    name: 'Collar Artesanal Terracota ï¿½tnico',
     price: 85000,
     originalPrice: 120000,
-    description: 'Hermoso collar artesanal elaborado en terracota con diseños étnicos únicos. Cada pieza es creada a mano por artesanos locales, garantizando la autenticidad y calidad de nuestros productos.',
+    description: 'Hermoso collar artesanal elaborado en terracota con diseï¿½os ï¿½tnicos ï¿½nicos. Cada pieza es creada a mano por artesanos locales, garantizando la autenticidad y calidad de nuestros productos.',
     category: 'Collares',
     inStock: true,
     stockQuantity: 15,
@@ -54,7 +54,7 @@ export const ProductDetailPage: React.FC = () => {
     ],
     features: [
       'Material: Terracota natural',
-      'Diseño étnico único',
+      'Diseï¿½o ï¿½tnico ï¿½nico',
       'Hecho a mano',
       'Acabado artesanal',
       'Longitud ajustable'
@@ -64,18 +64,23 @@ export const ProductDetailPage: React.FC = () => {
       'Longitud': '45-50 cm ajustable',
       'Peso': '25g',
       'Origen': 'Colombia',
-      'Cuidado': 'Limpiar con paño seco'
+      'Cuidado': 'Limpiar con paï¿½o seco'
     }
   }
 
   const handleAddToCart = () => {
+    const productToAdd = {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      imageUrl: product.images[0],
+      description: product.description,
+      category: product.category,
+      stock: product.stockQuantity
+    }
+
     for (let i = 0; i < quantity; i++) {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.images[0]
-      })
+      addItem(productToAdd)
     }
     // Show success feedback (in a real app, you might use a toast notification)
     alert(`${quantity} ${product.name} agregado al carrito`)
@@ -91,112 +96,228 @@ export const ProductDetailPage: React.FC = () => {
   const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
-      <Button
-        startIcon={<ArrowBack />}
-        onClick={() => window.history.back()}
-        sx={{ mb: 3 }}
-      >
-        Volver a Productos
-      </Button>
+    <Box component="main" sx={{ backgroundColor: '#FEFEFE', minHeight: '100vh' }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 3, md: 6 } }}>
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={() => window.history.back()}
+          sx={{
+            mb: 4,
+            color: '#332E29',
+            fontWeight: 500,
+            '&:hover': {
+              backgroundColor: '#F8F6F3',
+            }
+          }}
+        >
+          Volver a Productos
+        </Button>
 
-      <Grid container spacing={4}>
-        {/* Product Images */}
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Card>
-              <CardMedia
-                component="img"
-                height="400"
-                image={product.images[selectedImage]}
-                alt={product.name}
-                sx={{ objectFit: 'cover' }}
-              />
-            </Card>
-
-            <Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
-              {product.images.map((image, index) => (
-                <Card
-                  key={index}
+        <Grid2 container spacing={{ xs: 3, md: 6 }}>
+          {/* Product Images */}
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <Box>
+              <Card
+                sx={{
+                  borderRadius: '16px',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                  border: '1px solid #F0F0F0',
+                }}
+              >
+                <CardMedia
+                  component="img"
+                  height="500"
+                  image={product.images[selectedImage]}
+                  alt={product.name}
                   sx={{
-                    cursor: 'pointer',
-                    border: selectedImage === index ? 2 : 1,
-                    borderColor: selectedImage === index ? 'primary.main' : 'grey.300'
+                    objectFit: 'cover',
+                    backgroundColor: '#F8F6F3'
                   }}
-                  onClick={() => setSelectedImage(index)}
-                >
-                  <CardMedia
-                    component="img"
-                    height="80"
-                    width="80"
-                    image={image}
-                    alt={`${product.name} ${index + 1}`}
-                  />
-                </Card>
-              ))}
-            </Box>
-          </Box>
-        </Grid>
+                />
+              </Card>
 
-        {/* Product Information */}
-        <Grid item xs={12} md={6}>
-          <Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-              <Box>
-                <Chip label={product.category} size="small" sx={{ mb: 1 }} />
-                <Typography variant="h4" gutterBottom>
-                  {product.name}
-                </Typography>
-              </Box>
-              <Box sx={{ display: 'flex', gap: 1 }}>
-                <IconButton onClick={() => setIsFavorite(!isFavorite)}>
-                  {isFavorite ? <Favorite color="error" /> : <FavoriteBorder />}
-                </IconButton>
-                <IconButton>
-                  <Share />
-                </IconButton>
+              <Box sx={{ display: 'flex', gap: 2, mt: 3, justifyContent: 'center' }}>
+                {product.images.map((image, index) => (
+                  <Card
+                    key={index}
+                    sx={{
+                      cursor: 'pointer',
+                      border: selectedImage === index ? '2px solid #968679' : '1px solid #E8DDD4',
+                      borderRadius: '12px',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 8px 20px rgba(150, 134, 121, 0.2)',
+                      }
+                    }}
+                    onClick={() => setSelectedImage(index)}
+                  >
+                    <CardMedia
+                      component="img"
+                      height="80"
+                      width="80"
+                      image={image}
+                      alt={`${product.name} ${index + 1}`}
+                      sx={{
+                        objectFit: 'cover',
+                        backgroundColor: '#F8F6F3'
+                      }}
+                    />
+                  </Card>
+                ))}
               </Box>
             </Box>
+          </Grid2>
+
+          {/* Product Information */}
+          <Grid2 size={{ xs: 12, md: 6 }}>
+            <Box sx={{ pl: { xs: 0, md: 2 } }}>
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+                <Box>
+                  <Chip
+                    label={product.category}
+                    size="small"
+                    sx={{
+                      mb: 2,
+                      backgroundColor: '#F8F6F3',
+                      color: '#968679',
+                      border: '1px solid #E8DDD4',
+                      fontWeight: 500,
+                      fontSize: '12px'
+                    }}
+                  />
+                  <Typography
+                    variant="h3"
+                    gutterBottom
+                    sx={{
+                      fontSize: { xs: '28px', md: '36px' },
+                      fontWeight: 300,
+                      color: '#1A1A1A',
+                      letterSpacing: '0.02em',
+                      fontFamily: '"Playfair Display", serif',
+                      lineHeight: 1.2
+                    }}
+                  >
+                    {product.name}
+                  </Typography>
+                </Box>
+                <Box sx={{ display: 'flex', gap: 1 }}>
+                  <IconButton
+                    onClick={() => setIsFavorite(!isFavorite)}
+                    sx={{
+                      color: isFavorite ? '#968679' : '#888888',
+                      '&:hover': {
+                        backgroundColor: '#F8F6F3'
+                      }
+                    }}
+                  >
+                    {isFavorite ? <Favorite /> : <FavoriteBorder />}
+                  </IconButton>
+                  <IconButton
+                    sx={{
+                      color: '#888888',
+                      '&:hover': {
+                        backgroundColor: '#F8F6F3'
+                      }
+                    }}
+                  >
+                    <Share />
+                  </IconButton>
+                </Box>
+              </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Rating value={product.rating} precision={0.1} readOnly size="small" />
-              <Typography variant="body2" sx={{ ml: 1 }}>
-                ({product.reviews} reseñas)
+                <Rating
+                  value={product.rating}
+                  precision={0.1}
+                  readOnly
+                  size="small"
+                  sx={{
+                    color: '#968679',
+                    '& .MuiRating-iconEmpty': {
+                      color: '#E8DDD4'
+                    }
+                  }}
+                />
+                <Typography variant="body2" sx={{ ml: 1, color: '#666666', fontSize: '14px' }}>
+                ({product.reviews} reseï¿½as)
               </Typography>
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-              <Typography variant="h5" color="primary" fontWeight="bold">
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: '#332E29',
+                    fontWeight: 600,
+                    fontSize: { xs: '28px', md: '32px' }
+                  }}
+                >
                 ${product.price.toLocaleString()}
               </Typography>
               {discount > 0 && (
                 <>
                   <Typography
                     variant="body1"
-                    sx={{ textDecoration: 'line-through', color: 'text.secondary' }}
+                    sx={{
+                        textDecoration: 'line-through',
+                        color: '#888888',
+                        fontSize: '18px'
+                      }}
                   >
                     ${product.originalPrice.toLocaleString()}
                   </Typography>
                   <Chip
                     label={`-${discount}%`}
-                    color="error"
+                    sx={{
+                      backgroundColor: '#968679',
+                      color: '#FFF',
+                      fontWeight: 500,
+                      fontSize: '12px'
+                    }}
                     size="small"
                   />
                 </>
               )}
             </Box>
 
-            <Typography variant="body1" paragraph>
+              <Typography
+                variant="body1"
+                sx={{
+                  color: '#666666',
+                  fontSize: '16px',
+                  lineHeight: 1.7,
+                  mb: 4
+                }}
+              >
               {product.description}
             </Typography>
 
             <Box sx={{ mb: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Características:
+                <Typography
+                  variant="h6"
+                  gutterBottom
+                  sx={{
+                    color: '#332E29',
+                    fontSize: '18px',
+                    fontWeight: 600,
+                    mb: 2
+                  }}
+                >
+                Caracterï¿½sticas:
               </Typography>
               <Box component="ul" sx={{ pl: 2 }}>
                 {product.features.map((feature, index) => (
-                  <Typography component="li" variant="body2" key={index} sx={{ mb: 0.5 }}>
+                  <Typography
+                    component="li"
+                    variant="body2"
+                    key={index}
+                    sx={{
+                      mb: 1,
+                      color: '#666666',
+                      fontSize: '14px'
+                    }}
+                  >
                     {feature}
                   </Typography>
                 ))}
@@ -205,13 +326,39 @@ export const ProductDetailPage: React.FC = () => {
 
             {product.inStock ? (
               <Box sx={{ mb: 3 }}>
-                <Typography variant="body2" color="success.main" gutterBottom>
+                <Typography
+                  variant="body2"
+                  gutterBottom
+                  sx={{
+                    color: '#4CAF50',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                    mb: 3
+                  }}
+                >
                    En stock ({product.stockQuantity} disponibles)
                 </Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-                  <Typography variant="body1">Cantidad:</Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', border: 1, borderColor: 'grey.300', borderRadius: 1 }}>
+                  <Typography
+                    variant="body1"
+                    sx={{
+                      color: '#332E29',
+                      fontSize: '16px',
+                      fontWeight: 500
+                    }}
+                  >
+                    Cantidad:
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      border: '1px solid #E8DDD4',
+                      borderRadius: '8px',
+                      backgroundColor: '#FEFEFE'
+                    }}
+                  >
                     <IconButton
                       size="small"
                       onClick={() => handleQuantityChange(-1)}
@@ -238,15 +385,36 @@ export const ProductDetailPage: React.FC = () => {
                   startIcon={<ShoppingCart />}
                   onClick={handleAddToCart}
                   fullWidth
-                  sx={{ mb: 2 }}
+                  sx={{
+                    mb: 3,
+                    mt: 3,
+                    backgroundColor: '#332E29',
+                    color: '#FFF',
+                    py: 2,
+                    fontSize: '16px',
+                    fontWeight: 600,
+                    borderRadius: '12px',
+                    textTransform: 'none',
+                    boxShadow: '0 4px 16px rgba(51, 46, 41, 0.2)',
+                    '&:hover': {
+                      backgroundColor: '#4A453E',
+                      boxShadow: '0 6px 20px rgba(51, 46, 41, 0.3)',
+                    }
+                  }}
                 >
                   Agregar al Carrito - ${(product.price * quantity).toLocaleString()}
                 </Button>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <LocalShipping color="primary" />
-                  <Typography variant="body2">
-                    Envío gratis en compras superiores a $150.000
+                  <LocalShipping sx={{ color: '#968679' }} />
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: '#666666',
+                      fontSize: '14px'
+                    }}
+                  >
+                    Envï¿½o gratis en compras superiores a $150.000
                   </Typography>
                 </Box>
               </Box>
@@ -256,30 +424,62 @@ export const ProductDetailPage: React.FC = () => {
               </Alert>
             )}
           </Box>
-        </Grid>
-      </Grid>
+          </Grid2>
+        </Grid2>
 
       {/* Product Specifications */}
-      <Paper sx={{ p: 3, mt: 4 }}>
-        <Typography variant="h6" gutterBottom>
-          Especificaciones Técnicas
+        <Paper
+          sx={{
+            p: 4,
+            mt: 6,
+            borderRadius: '16px',
+            backgroundColor: '#FEFEFE',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #F0F0F0'
+          }}
+        >
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{
+              color: '#332E29',
+              fontSize: { xs: '20px', md: '24px' },
+              fontWeight: 600,
+              mb: 3
+            }}
+          >
+          Especificaciones Tï¿½cnicas
         </Typography>
-        <Divider sx={{ mb: 2 }} />
-        <Grid container spacing={2}>
+          <Divider sx={{ mb: 3, borderColor: '#E8DDD4' }} />
+        <Grid2 container spacing={2}>
           {Object.entries(product.specifications).map(([key, value]) => (
-            <Grid item xs={12} sm={6} key={key}>
+            <Grid2 size={{ xs: 12, sm: 6 }} key={key}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body2" fontWeight="medium">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    fontWeight: 500,
+                    color: '#332E29',
+                    fontSize: '14px'
+                  }}
+                >
                   {key}:
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: '#666666',
+                    fontSize: '14px'
+                  }}
+                >
                   {value}
                 </Typography>
               </Box>
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
-      </Paper>
-    </Container>
+        </Grid2>
+        </Paper>
+      </Container>
+    </Box>
   )
 }
