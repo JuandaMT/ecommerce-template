@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import {
   Container,
@@ -34,13 +34,22 @@ export const ProductDetailPage: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState(0)
   const [isFavorite, setIsFavorite] = useState(false)
 
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    })
+  }, [productId]) // Re-run when productId changes
+
   // Mock product data (in a real app, this would come from an API)
   const product = {
     id: productId || '1',
-    name: 'Collar Artesanal Terracota �tnico',
+    name: 'Collar Artesanal Terracota Étnico',
     price: 85000,
     originalPrice: 120000,
-    description: 'Hermoso collar artesanal elaborado en terracota con dise�os �tnicos �nicos. Cada pieza es creada a mano por artesanos locales, garantizando la autenticidad y calidad de nuestros productos.',
+    description: 'Hermoso collar artesanal elaborado en terracota con diseños étnicos únicos. Cada pieza es creada a mano por artesanos locales, garantizando la autenticidad y calidad de nuestros productos.',
     category: 'Collares',
     inStock: true,
     stockQuantity: 15,
@@ -54,7 +63,7 @@ export const ProductDetailPage: React.FC = () => {
     ],
     features: [
       'Material: Terracota natural',
-      'Dise�o �tnico �nico',
+      'Diseño étnico único',
       'Hecho a mano',
       'Acabado artesanal',
       'Longitud ajustable'
@@ -64,7 +73,7 @@ export const ProductDetailPage: React.FC = () => {
       'Longitud': '45-50 cm ajustable',
       'Peso': '25g',
       'Origen': 'Colombia',
-      'Cuidado': 'Limpiar con pa�o seco'
+      'Cuidado': 'Limpiar con paño seco'
     }
   }
 
@@ -240,7 +249,7 @@ export const ProductDetailPage: React.FC = () => {
                   }}
                 />
                 <Typography variant="body2" sx={{ ml: 1, color: '#666666', fontSize: '14px' }}>
-                ({product.reviews} rese�as)
+                ({product.reviews} reseñas)
               </Typography>
             </Box>
 
@@ -304,7 +313,7 @@ export const ProductDetailPage: React.FC = () => {
                     mb: 2
                   }}
                 >
-                Caracter�sticas:
+                Características:
               </Typography>
               <Box component="ul" sx={{ pl: 2 }}>
                 {product.features.map((feature, index) => (
@@ -414,7 +423,7 @@ export const ProductDetailPage: React.FC = () => {
                       fontSize: '14px'
                     }}
                   >
-                    Env�o gratis en compras superiores a $150.000
+                    Envío gratis en compras superiores a $150.000
                   </Typography>
                 </Box>
               </Box>
@@ -448,7 +457,7 @@ export const ProductDetailPage: React.FC = () => {
               mb: 3
             }}
           >
-          Especificaciones T�cnicas
+          Especificaciones Técnicas
         </Typography>
           <Divider sx={{ mb: 3, borderColor: '#E8DDD4' }} />
         <Grid2 container spacing={2}>
