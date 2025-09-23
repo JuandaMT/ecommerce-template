@@ -28,11 +28,11 @@ import { clientConfig } from '../../../config/client.config'
 
 const navigationLinks = {
   products: [
-    { name: 'Collares', href: '/collares' },
-    { name: 'Anillos', href: '/anillos' },
-    { name: 'Pulseras', href: '/pulseras' },
-    { name: 'Pendientes', href: '/pendientes' },
-    { name: 'Nuevos Productos', href: '/nuevos' }
+    { name: 'Collares', href: '/productos' },
+    { name: 'Anillos', href: '/productos' },
+    { name: 'Pulseras', href: '/productos' },
+    { name: 'Pendientes', href: '/productos' },
+    { name: 'Nuevos Productos', href: '/productos' }
   ],
   company: [
     { name: 'Sobre Nosotros', href: '/sobre-nosotros' },

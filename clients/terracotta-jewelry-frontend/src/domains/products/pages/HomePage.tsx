@@ -5,6 +5,7 @@ import { InfiniteCarousel } from '../../../shared/components/carousel/InfiniteCa
 import { AnimatedReviews } from '../../../shared/components/reviews/AnimatedReviews'
 import './Home.css'
 import { BentoComponent } from '../../../shared/components/cards/BentoComponent'
+import { useNavigate } from 'react-router-dom'
 
 const modernButton = {
 	background: 'linear-gradient(135deg, #FFF 0%, #F8F8F8 100%)',
@@ -47,6 +48,12 @@ const modernButton = {
 }
 
 export const HomePage = () => {
+	const navigate = useNavigate()
+
+	const handleShopNowClick = () => {
+		navigate('/productos')
+	}
+
 	return (
 		<Box component={'main'}>
 			<Box
@@ -69,6 +76,7 @@ export const HomePage = () => {
 							sx={{ ...modernButton, mt: { xs: 2, md: 3 } }}
 							startIcon={<ShoppingBag />}
 							endIcon={<ArrowForward />}
+							onClick={handleShopNowClick}
 						>
 							Shop Now
 						</Button>

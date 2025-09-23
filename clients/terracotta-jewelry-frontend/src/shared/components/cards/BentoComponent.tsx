@@ -3,14 +3,14 @@ import { BentoBigCard } from './BentoCard'
 import { useEffect, useRef, useState } from 'react'
 
 const cardData: { src: string; type: 'big' | 'small' | undefined; href?: string }[] = [
-	{ src: '/src/assets/bento/image1.webp', type: 'big', href: '/hola' },
-	{ src: '/src/assets/bento/image2.webp', type: 'small', href: '/hola' },
-	{ src: '/src/assets/bento/image3.webp', type: 'small', href: '/hola' },
+	{ src: '/src/assets/bento/image1.webp', type: 'big', href: '/productos' },
+	{ src: '/src/assets/bento/image2.webp', type: 'small', href: '/productos' },
+	{ src: '/src/assets/bento/image3.webp', type: 'small', href: '/productos' },
 ]
 const cardData2: { src: string; type: 'big' | 'small' | undefined; href?: string }[] = [
-	{ src: '/src/assets/bento/image4.webp', type: 'small', href: '/hola' },
-	{ src: '/src/assets/bento/image5.webp', type: 'small', href: '/hola' },
-	{ src: '/src/assets/bento/image6.webp', type: 'big', href: '/hola' },
+	{ src: '/src/assets/bento/image4.webp', type: 'small', href: '/productos' },
+	{ src: '/src/assets/bento/image5.webp', type: 'small', href: '/productos' },
+	{ src: '/src/assets/bento/image6.webp', type: 'big', href: '/productos' },
 ]
 export const BentoComponent = () => {
 	const [isVisible, setIsVisible] = useState(false)
